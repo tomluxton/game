@@ -95,18 +95,17 @@ public class Model {
     }
 
     //Checks Player has enough money to buy desired amount
-    private void buyStock(int buyAmount) {
+    public void buyStock(int buyAmount) {
 
         if(getStockValue() * buyAmount <= getPlayerMoney()){
             playerMoney-= getStockValue() * buyAmount;
             playerStocksOwned += buyAmount;
-        }else{
-            ;// need to throw some kind of error here if its to much
         }
+        System.out.println(buyAmount + " " + playerStocksOwned);
     }
 
     //Checks Player has enough stocks to sell desired amount
-    private void sellStock(int sellAmount) {
+    public void sellStock(int sellAmount) {
 
         if (playerStocksOwned >= sellAmount) {
             playerMoney += getStockValue() * sellAmount;

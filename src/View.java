@@ -35,6 +35,9 @@ public class View {
     private TextField buyInput;
     private TextField sellInput;
 
+    private ArrayList<TextField> inputArray;
+
+
     private Button dayButton;
     private Button buyButton;
     private Button sellButton;
@@ -51,22 +54,23 @@ public class View {
     private Model model;
 
 
-
-
-
     public void updateScene(){
         dayLabel.setText("Day " + String.valueOf(model.getDay()));
-        playerMoneyLbl = new Label("Money: " + model.getPlayerMoney());
-        stocksOwnedLbl = new Label("Stocks: " + model.getPlayerStocksOwned());
+        playerMoneyLbl.setText("Money: " + model.getPlayerMoney());
+        stocksOwnedLbl.setText("Stocks: " + model.getPlayerStocksOwned());
+        System.out.println(model.getPlayerMoney() + " updateScene end ");
 
         //DUPLICATE SERIES ERROR DONT KNOW WHY
-        series.getData().add(new XYChart.Data(model.getDay(), model.getStockValue()));
-        lineChart.getData().add(series);
+        //series.getData().add(new XYChart.Data(model.getDay(), model.getStockValue()));
+        //lineChart.getData().add(series);
 
     }
     public ArrayList<Button> getButtons(){
         System.out.println(buttonArray);
         return buttonArray;
+    }
+    public ArrayList<TextField> getTextFields(){
+        return inputArray;
     }
 
     public View(Model model, Stage primaryStage) {
@@ -78,6 +82,9 @@ public class View {
         this.model = model;
 
         dayLabel = new Label();
+        stockWorthLbl = new Label();
+        stocksOwnedLbl = new Label();
+        playerMoneyLbl = new Label();
 
         dayButton = new Button("Next Day");
         buyButton = new Button("Buy Stocks");
@@ -92,11 +99,15 @@ public class View {
                 sellButton,
                 backToTownButton,
                 toStocksBtn));
-        System.out.println("ButtonArray : " + buttonArray);
 
 
         buyInput = new TextField();
         sellInput = new TextField();
+        inputArray = new ArrayList<>();
+        inputArray.addAll(Arrays.asList(
+                buyInput,
+                sellInput));
+
 
         Label townLbl = new Label("Welcome back to town! Where to go?");
 
@@ -143,8 +154,6 @@ public class View {
 
     }
 
-
-
     public void set_TownScene() {
         System.out.println(primaryStage);
         this.primaryStage.setScene(this.townScene);
@@ -153,12 +162,4 @@ public class View {
         primaryStage.setScene(this.stockScene);
     }
 
-    public void addButtonHandler(EventHandler<ActionEvent> handler){
-
-        for (Button b : buttonArray){
-            b.setOnAction(handler);
-        }
-
-
-    }
 }
