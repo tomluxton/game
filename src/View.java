@@ -60,9 +60,7 @@ public class View {
         stocksOwnedLbl.setText("Stocks: " + model.getPlayerStocksOwned());
         System.out.println(model.getPlayerMoney() + " updateScene end ");
 
-        //DUPLICATE SERIES ERROR DONT KNOW WHY
-        //series.getData().add(new XYChart.Data(model.getDay(), model.getStockValue()));
-        //lineChart.getData().add(series);
+        series.getData().add(new XYChart.Data(model.getDay(), model.getStockValue()));
 
     }
     public ArrayList<Button> getButtons(){
@@ -126,6 +124,9 @@ public class View {
         lineChart = new LineChart(xAxis, yAxis);
         series = new XYChart.Series();
         series.setName("Stock Value");
+        series.getData().add(new XYChart.Data(model.getDay(), model.getStockValue()));
+        lineChart.getData().add(series);
+
 
         updateScene();
         GridPane layout = new GridPane();
