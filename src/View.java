@@ -61,6 +61,17 @@ public class View {
         System.out.println(model.getPlayerMoney() + " updateScene end ");
 
         series.getData().add(new XYChart.Data(model.getDay(), model.getStockValue()));
+        
+        if(model.getDay()>=xAxis.getUpperBound()) {
+            xAxis.setUpperBound(xAxis.getUpperBound() + 1);
+        }
+        if(model.getDay()>=xAxis.getLowerBound()+30){
+            xAxis.setLowerBound(xAxis.getLowerBound() + 1);
+        }
+
+        if(model.getStockValue()>=yAxis.getUpperBound()){
+            yAxis.setUpperBound(yAxis.getUpperBound() + 1);
+        }
 
     }
     public ArrayList<Button> getButtons(){
