@@ -25,6 +25,7 @@ public class View {
     private Scene currentScene;
     private Scene stockScene;
     private Scene townScene;
+    private Scene workScene;
 
     private Label dayLabel;
     private LineChart lineChart;
@@ -41,8 +42,11 @@ public class View {
     private Button dayButton;
     private Button buyButton;
     private Button sellButton;
-    private Button backToTownButton;
+    private Button backToTownBtnStock;
+    private Button backToTownBtnWork;
     private Button toStocksBtn;
+    private Button toWorkBtn;
+
     private ArrayList<Button> buttonArray;
 
     private Label stockWorthLbl;
@@ -50,35 +54,38 @@ public class View {
     private Label playerMoneyLbl;
 
     private VBox townLayout;
+    private VBox workLayout;
 
     private Model model;
 
 
-    public void updateScene(){
+    public void updateScene() {
         dayLabel.setText("Day " + String.valueOf(model.getDay()));
         playerMoneyLbl.setText("Money: " + model.getPlayerMoney());
         stocksOwnedLbl.setText("Stocks: " + model.getPlayerStocksOwned());
         System.out.println(model.getPlayerMoney() + " updateScene end ");
 
         series.getData().add(new XYChart.Data(model.getDay(), model.getStockValue()));
-        
-        if(model.getDay()>=xAxis.getUpperBound()) {
+
+        if (model.getDay() >= xAxis.getUpperBound()) {
             xAxis.setUpperBound(xAxis.getUpperBound() + 1);
         }
-        if(model.getDay()>=xAxis.getLowerBound()+30){
+        if (model.getDay() >= xAxis.getLowerBound() + 30) {
             xAxis.setLowerBound(xAxis.getLowerBound() + 1);
         }
 
-        if(model.getStockValue()>=yAxis.getUpperBound()){
+        if (model.getStockValue() >= yAxis.getUpperBound()) {
             yAxis.setUpperBound(yAxis.getUpperBound() + 1);
         }
 
     }
-    public ArrayList<Button> getButtons(){
+
+    public ArrayList<Button> getButtons() {
         System.out.println(buttonArray);
         return buttonArray;
     }
-    public ArrayList<TextField> getTextFields(){
+
+    public ArrayList<TextField> getTextFields() {
         return inputArray;
     }
 
@@ -98,16 +105,12 @@ public class View {
         dayButton = new Button("Next Day");
         buyButton = new Button("Buy Stocks");
         sellButton = new Button("Sell Stocks");
-        backToTownButton = new Button("Back to Town");
+        backToTownBtnStock = new Button("Back to Town");
         //backToTownButton.setOnAction(e -> window.setScene(townScene));
         toStocksBtn = new Button("Stock Trade");
         //toStocksBtn.setOnAction(e -> window.setScene(stockScene));
+        toWorkBtn = new Button("Work");
 
-        buttonArray.addAll(Arrays.asList(dayButton,
-                buyButton,
-                sellButton,
-                backToTownButton,
-                toStocksBtn));
 
 
         buyInput = new TextField();
@@ -121,9 +124,18 @@ public class View {
         Label townLbl = new Label("Welcome back to town! Where to go?");
 
         townLayout = new VBox(20);
-        townLayout.getChildren().addAll(townLbl, toStocksBtn);
-        townScene = new Scene(townLayout, 750, 500);
+        townLayout.getChildren().addAll(townLbl, toStocksBtn, toWorkBtn);
         townLayout.setPadding(new Insets(10, 10, 10, 10));
+        townScene = new Scene(townLayout, 750, 500);
+
+
+        Label workLbl = new Label("Welcome to work!");
+        Button backToTownBtnWork = new Button("Back to Town");
+
+        workLayout = new VBox(20);
+        workLayout.getChildren().addAll(workLbl, backToTownBtnWork);
+        workLayout.setPadding(new Insets(10, 10, 10, 10));
+        workScene = new Scene(workLayout, 750, 500);
 
         //        StackPane layout = new StackPane();
         //        layout.getChildren().addAll(dayButton, dayLabel);
@@ -150,7 +162,7 @@ public class View {
         layout.add(lineChart, 0, 0);
         layout.add(dayLabel, 0, 1);
         layout.add(dayButton, 0, 2);
-        layout.add(backToTownButton, 0, 3);
+        layout.add(backToTownBtnStock, 0, 3);
 
         layout.add(buyInput, 2, 1);
         layout.add(sellInput, 3, 1);
@@ -158,6 +170,15 @@ public class View {
         layout.add(sellButton, 3, 2);
         layout.add(playerMoneyLbl, 2, 3);
         layout.add(stocksOwnedLbl, 3, 3);
+
+        buttonArray.addAll(Arrays.asList(dayButton,
+                buyButton,
+                sellButton,
+                backToTownBtnStock,
+                toStocksBtn,
+                toWorkBtn,
+                backToTownBtnWork));
+
 
         stockScene = new Scene(layout, 750, 500);
         System.out.println(this.townScene);
@@ -170,8 +191,16 @@ public class View {
         System.out.println(primaryStage);
         this.primaryStage.setScene(this.townScene);
     }
+
+    public void set_TownScene2(){
+        this.primaryStage.setScene(this.townScene);
+    }
+
     public void set_StockScene() {
         primaryStage.setScene(this.stockScene);
     }
 
+    public void set_WorkScene(){
+        primaryStage.setScene(this.workScene);
+    }
 }

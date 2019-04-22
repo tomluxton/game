@@ -35,6 +35,8 @@ public class Controller {
         button.get(2).setOnAction(e -> sellStocks());
         button.get(3).setOnAction(e -> travel_ToTownPage());
         button.get(4).setOnAction(e -> travel_ToStockPage());
+        button.get(5).setOnAction(e -> travel_ToWorkPage());
+        button.get(6).setOnAction(e -> travel_ToTownPage2());
 
     }
 
@@ -48,6 +50,14 @@ public class Controller {
         System.out.println("travel to town button");
 
         // view.updateScene();
+    }
+
+    private void travel_ToTownPage2(){
+        view.set_TownScene2();
+    }
+
+    private void travel_ToWorkPage(){
+        view.set_WorkScene();
     }
 
 
