@@ -12,12 +12,15 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class View {
 
@@ -53,6 +56,9 @@ public class View {
     private Label stocksOwnedLbl;
     private Label playerMoneyLbl;
 
+    private Label townMoneyLbl;
+    private Label townDayLbl;
+
     private VBox townLayout;
     private VBox workLayout;
 
@@ -64,6 +70,9 @@ public class View {
         playerMoneyLbl.setText("Money: " + model.getPlayerMoney());
         stocksOwnedLbl.setText("Stocks: " + model.getPlayerStocksOwned());
         System.out.println(model.getPlayerMoney() + " updateScene end ");
+
+        townDayLbl.setText("Day " + String.valueOf(model.getDay()));
+        townMoneyLbl.setText("Money: " + model.getPlayerMoney());
 
         series.getData().add(new XYChart.Data(model.getDay(), model.getStockValue()));
 
@@ -122,11 +131,33 @@ public class View {
 
 
         Label townLbl = new Label("Welcome back to town! Where to go?");
+        Label townTitleLbl = new Label("Town");
+        townDayLbl = new Label("Day " + String.valueOf(model.getDay()));
+        townMoneyLbl = new Label("Money: " + model.getPlayerMoney());
 
-        townLayout = new VBox(20);
-        townLayout.getChildren().addAll(townLbl, toStocksBtn, toWorkBtn);
-        townLayout.setPadding(new Insets(10, 10, 10, 10));
-        townScene = new Scene(townLayout, 750, 500);
+
+
+
+        BorderPane townBP = new BorderPane();
+        VBox townVBox = new VBox();
+        HBox townHBox = new HBox();
+        townBP.setTop(townHBox);
+        townBP.setCenter(townVBox);
+
+        townHBox.setPadding(new Insets(15, 12, 15, 12));
+        townHBox.setSpacing(10);
+        townHBox.setStyle("-fx-background-color: #84abff;");
+
+        townVBox.setPadding(new Insets(10));
+        townVBox.setSpacing(8);
+
+        townHBox.getChildren().addAll(townTitleLbl, townDayLbl,townMoneyLbl);
+        townVBox.getChildren().addAll(townLbl, toStocksBtn, toWorkBtn);
+
+//        townLayout = new VBox(20);
+//        townLayout.getChildren().addAll(townLbl, toStocksBtn, toWorkBtn);
+//        townLayout.setPadding(new Insets(10, 10, 10, 10));
+        townScene = new Scene(townBP, 750, 500);
 
 
         Label workLbl = new Label("Welcome to work!");
@@ -171,6 +202,8 @@ public class View {
         layout.add(playerMoneyLbl, 2, 3);
         layout.add(stocksOwnedLbl, 3, 3);
 
+
+        //Button Array at the bottom so all button creation can be done before sending it to controller
         buttonArray.addAll(Arrays.asList(dayButton,
                 buyButton,
                 sellButton,
