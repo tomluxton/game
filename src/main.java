@@ -10,7 +10,7 @@ public class main extends Application {
 
     public void start(Stage primaryStage){
 
-        primaryStage.setTitle("CSSE2002 Assignment 3");
+        primaryStage.setTitle("Financial Simulator");
         Model model = new Model();
 
         View view = new View(model, primaryStage);
