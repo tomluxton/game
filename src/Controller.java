@@ -40,7 +40,38 @@ public class Controller {
         button.get(4).setOnAction(e -> travel_ToStockPage());
         button.get(5).setOnAction(e -> travel_ToWorkPage());
         button.get(6).setOnAction(e -> travel_ToTownPage2());
+        button.get(7).setOnAction(e -> show_JobListings());
+        button.get(8).setOnAction(e -> employed_janitor());
+        button.get(9).setOnAction(e -> work_shift());
 
+        setAbilityOfWork();
+
+    }
+
+    public void work_shift(){
+        model.payPlayerWage();
+        nextDay();
+//        view.updateScene();
+    }
+
+    public void employed_janitor(){
+        view.hide_jobListings();
+        model.setJob("Janitor");
+        model.setWage(100);
+        view.set_WorkAbility();
+        view.set_WorkScene();
+    }
+
+    public void show_JobListings(){
+        view.set_jobListings();
+    }
+
+    public void setAbilityOfWork(){
+        if (model.getPlayersJob()!= "Unemployed"){
+            view.set_WorkAbility();
+        } else {
+            view.remove_WorkAbility();
+        }
     }
 
     private void travel_ToStockPage() {
@@ -50,12 +81,13 @@ public class Controller {
 
     private void travel_ToTownPage() {
         view.set_TownScene();
-        System.out.println("travel to town button");
+//        System.out.println("travel to town button");
 
         // view.updateScene();
     }
 
     private void travel_ToTownPage2(){
+        view.hide_jobListings();
         view.set_TownScene2();
     }
 

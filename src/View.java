@@ -68,6 +68,17 @@ public class View {
 
     private Model model;
 
+    private HBox workHbox;
+    private VBox workVBox;
+
+    private VBox workVBoxSecond;
+
+
+    private Button lookForWorkBtn;
+    private Button workBtn;
+
+    private Button janitorJobBtn;
+
 
     public void updateScene() {
         dayLabel.setText("Day " + String.valueOf(model.getDay()));
@@ -167,12 +178,18 @@ public class View {
 
 
         //work scene
-        Label workLbl = new Label("Welcome to work!");
+        Label workLbl = new Label(model.getJobWelcoming());
+        workDayLbl = new Label("Day " + String.valueOf(model.getDay()));
         Button backToTownBtnWork = new Button("Back to Town");
+        lookForWorkBtn = new Button(model.getJobHunt());
+        workBtn = new Button("Work for the day");
+
+
 
         BorderPane workBP = new BorderPane();
-        VBox workVBox = new VBox(20);
-        HBox workHbox = new HBox();
+        workVBox = new VBox(20);
+        workHbox = new HBox();
+        workVBoxSecond = new VBox(20);
 
         workHbox.setPadding(new Insets(15, 12, 15, 12));
         workHbox.setSpacing(10);
@@ -184,9 +201,20 @@ public class View {
         workHbox.getChildren().addAll(workTitleLbl, workDayLbl, workMoneyLbl);
 
         workBP.setTop(workHbox);
-        workBP.setCenter(workVBox);
-        workVBox.getChildren().addAll(workLbl, backToTownBtnWork);
-        workVBox.setPadding(new Insets(10, 10, 10, 10));
+        workBP.setLeft(workVBox);
+        workBP.setRight(workVBoxSecond);
+        workVBox.getChildren().addAll(workLbl, workBtn, lookForWorkBtn, backToTownBtnWork);
+        workVBox.setPadding(new Insets(10));
+        workVBox.setSpacing(8);
+
+        workVBoxSecond.setPadding(new Insets(10));
+        workVBoxSecond.setSpacing(8);
+
+        janitorJobBtn = new Button("Janitor | Pay: $100 per shift");
+
+
+
+        //workVBox.setPadding(new Insets(10, 10, 10, 10));
         workScene = new Scene(workBP, 750, 500);
 
 
@@ -233,7 +261,10 @@ public class View {
                 backToTownBtnStock,
                 toStocksBtn,
                 toWorkBtn,
-                backToTownBtnWork));
+                backToTownBtnWork,
+                lookForWorkBtn,
+                janitorJobBtn,
+                workBtn));
 
 
         stockScene = new Scene(layout, 750, 500);
@@ -243,8 +274,33 @@ public class View {
 
     }
 
+    public void set_jobListings() {
+        //add all stuff
+        if (workVBoxSecond.getChildren().isEmpty()) {
+            Label jobListings = new Label("Here are the jobs listed today:");
+            workVBoxSecond.getChildren().addAll(jobListings, janitorJobBtn);
+
+        }
+    }
+
+    public void hide_jobListings(){
+        workVBoxSecond.getChildren().removeAll(workVBoxSecond.getChildren());
+    }
+
+    public void set_WorkAbility(){
+        Label workLbl = new Label(model.getJobWelcoming());
+        workVBox.getChildren().remove(0);
+        workVBox.getChildren().add(0, workLbl);
+        workVBox.getChildren().add(1,workBtn);
+
+    }
+
+    public void remove_WorkAbility(){
+        workVBox.getChildren().remove(workBtn);
+    }
+
     public void set_TownScene() {
-        System.out.println(primaryStage);
+//        System.out.println(primaryStage);
         this.primaryStage.setScene(this.townScene);
     }
 

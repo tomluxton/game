@@ -3,6 +3,8 @@ package game;
 import game.View;
 import game.Controller;
 
+import java.awt.*;
+
 public class Model {
 
     private int dayCounter;
@@ -25,7 +27,11 @@ public class Model {
 
     private boolean playerHasJob;
 
+    private String playerJob;
+
     private int playerStocksOwned;
+
+    private int playerWage;
 
     public Model(){
         dayCounter = 0;
@@ -33,7 +39,7 @@ public class Model {
 
         GDPGrowth = true;
 
-        growthChance = 5;
+        growthChance = 7;
         //growthChance * 10 to get percentage stock will increase each day
         //only takes whole numbers (integers)
 
@@ -46,6 +52,37 @@ public class Model {
         playerMoney = 500;
         playerStocksOwned = 0;
 
+        playerHasJob = false;
+
+        playerJob = "Unemployed";
+
+    }
+
+
+
+    public String getJobHunt(){
+        if(getPlayersJob()!= "Unemployed"){
+            return "Look for a different job";
+        } else {
+            return "Look for a job";
+        }
+    }
+
+    public String getJobWelcoming(){
+        if(getPlayersJob()!= "Unemployed") {
+            return "Welcome to your workplace: " + getPlayersJob();
+        } else {
+            return "You're Unemployed! Get a JOB";
+        }
+    }
+
+    public String getPlayersJob(){
+        return playerJob;
+    }
+
+    public void setJob(String job){
+        playerJob = job;
+//        System.out.println(playerJob);
     }
 
     public int getDay(){
@@ -54,7 +91,16 @@ public class Model {
 
     public void nextDay(){
         dayCounter += 1;
-
+//        System.out.println(Math.random());
+        if (dayCounter % 30 ==0){
+            if(Math.random()>0.5){
+                setNonRecession();
+            } else {
+                setRecession();
+            }
+            System.out.println("We set it!!");
+            setGrowthStatus();
+        }
     }
 
     public int getStockValue(){
@@ -73,7 +119,7 @@ public class Model {
         GDPGrowth = true;
     }
 
-    public void setGrowth(){
+    public void setGrowthStatus(){
         if (GDPGrowth==true){
             growthChance = 7;
         } else {
@@ -97,6 +143,18 @@ public class Model {
 
     public int getPlayerMoney(){
         return playerMoney;
+    }
+
+    public void setWage(int wage){
+        playerWage = wage;
+    }
+
+    public int getWage(){
+        return playerWage;
+    }
+
+    public void payPlayerWage(){
+        playerMoney+=getWage();
     }
 
     public int getPlayerStocksOwned(){
