@@ -79,6 +79,9 @@ public class View {
 
     private Button janitorJobBtn;
 
+    private Label stockMarketHboxDayLbl;
+    private Label stockMarketHboxMoneyLbl;
+
 
     public void updateScene() {
         dayLabel.setText("Day " + String.valueOf(model.getDay()));
@@ -92,6 +95,8 @@ public class View {
         workDayLbl.setText("Day " + String.valueOf(model.getDay()));
         workMoneyLbl.setText("Money: " + model.getPlayerMoney());
 
+        stockMarketHboxDayLbl.setText("Day " + String.valueOf(model.getDay()));
+        stockMarketHboxMoneyLbl.setText("Money: " + model.getPlayerMoney());
 
         series.getData().add(new XYChart.Data(model.getDay(), model.getStockValue()));
 
@@ -174,7 +179,7 @@ public class View {
 //        townLayout = new VBox(20);
 //        townLayout.getChildren().addAll(townLbl, toStocksBtn, toWorkBtn);
 //        townLayout.setPadding(new Insets(10, 10, 10, 10));
-        townScene = new Scene(townBP, 750, 500);
+        townScene = new Scene(townBP, 750, 600);
 
 
         //work scene
@@ -215,7 +220,7 @@ public class View {
 
 
         //workVBox.setPadding(new Insets(10, 10, 10, 10));
-        workScene = new Scene(workBP, 750, 500);
+        workScene = new Scene(workBP, 750, 600);
 
 
 
@@ -233,18 +238,19 @@ public class View {
         lineChart.getData().add(series);
 
 
-        updateScene();
+
+        BorderPane stockMarketBP = new BorderPane();
         GridPane layout = new GridPane();
-        layout.setMinSize(750, 500);
+        layout.setMinSize(750, 600);
         layout.setPadding(new Insets(10, 10, 10, 10));
         layout.setVgap(5);
         layout.setHgap(5);
         layout.setAlignment(Pos.CENTER);
 
         layout.add(lineChart, 0, 0);
-        layout.add(dayLabel, 0, 1);
-        layout.add(dayButton, 0, 2);
-        layout.add(backToTownBtnStock, 0, 3);
+//        layout.add(dayLabel, 0, 1);
+        layout.add(dayButton, 0, 1);
+        layout.add(backToTownBtnStock, 0, 2);
 
         layout.add(buyInput, 2, 1);
         layout.add(sellInput, 3, 1);
@@ -266,11 +272,24 @@ public class View {
                 janitorJobBtn,
                 workBtn));
 
+        HBox stockMarketHbox = new HBox();
 
-        stockScene = new Scene(layout, 750, 500);
-        System.out.println(this.townScene);
+        stockMarketHbox.setPadding(new Insets(15, 12, 15, 12));
+        stockMarketHbox.setSpacing(10);
+        stockMarketHbox.setStyle("-fx-background-color: #84abff;");
+
+        stockMarketHboxDayLbl = new Label("Day " + String.valueOf(model.getDay()));
+        stockMarketHboxMoneyLbl = new Label("Money: " + model.getPlayerMoney());
+        Label stockMarketTitleLbl = new Label("Stock Trade");
+        stockMarketHbox.getChildren().addAll(stockMarketTitleLbl, stockMarketHboxDayLbl, stockMarketHboxMoneyLbl);
+
+        stockMarketBP.setTop(stockMarketHbox);
+        stockMarketBP.setCenter(layout);
+        stockScene = new Scene(stockMarketBP, 750, 600);
+//        System.out.println(this.townScene);
         primaryStage.setScene(stockScene);
         primaryStage.show();
+        updateScene();
 
     }
 
