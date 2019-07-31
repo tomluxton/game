@@ -1,6 +1,7 @@
 package game;
 
 import game.Model;
+import game.Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -59,6 +60,9 @@ public class View {
     private Label townMoneyLbl;
     private Label townDayLbl;
 
+    private Label workMoneyLbl;
+    private Label workDayLbl;
+
     private VBox townLayout;
     private VBox workLayout;
 
@@ -73,6 +77,10 @@ public class View {
 
         townDayLbl.setText("Day " + String.valueOf(model.getDay()));
         townMoneyLbl.setText("Money: " + model.getPlayerMoney());
+
+        workDayLbl.setText("Day " + String.valueOf(model.getDay()));
+        workMoneyLbl.setText("Money: " + model.getPlayerMoney());
+
 
         series.getData().add(new XYChart.Data(model.getDay(), model.getStockValue()));
 
@@ -130,13 +138,11 @@ public class View {
                 sellInput));
 
 
+        //town scene
         Label townLbl = new Label("Welcome back to town! Where to go?");
         Label townTitleLbl = new Label("Town");
         townDayLbl = new Label("Day " + String.valueOf(model.getDay()));
         townMoneyLbl = new Label("Money: " + model.getPlayerMoney());
-
-
-
 
         BorderPane townBP = new BorderPane();
         VBox townVBox = new VBox();
@@ -160,13 +166,30 @@ public class View {
         townScene = new Scene(townBP, 750, 500);
 
 
+        //work scene
         Label workLbl = new Label("Welcome to work!");
         Button backToTownBtnWork = new Button("Back to Town");
 
-        workLayout = new VBox(20);
-        workLayout.getChildren().addAll(workLbl, backToTownBtnWork);
-        workLayout.setPadding(new Insets(10, 10, 10, 10));
-        workScene = new Scene(workLayout, 750, 500);
+        BorderPane workBP = new BorderPane();
+        VBox workVBox = new VBox(20);
+        HBox workHbox = new HBox();
+
+        workHbox.setPadding(new Insets(15, 12, 15, 12));
+        workHbox.setSpacing(10);
+        workHbox.setStyle("-fx-background-color: #84abff;");
+
+        workDayLbl = new Label("Day " + String.valueOf(model.getDay()));
+        workMoneyLbl = new Label("Money: " + model.getPlayerMoney());
+        Label workTitleLbl = new Label("Work");
+        workHbox.getChildren().addAll(workTitleLbl, workDayLbl, workMoneyLbl);
+
+        workBP.setTop(workHbox);
+        workBP.setCenter(workVBox);
+        workVBox.getChildren().addAll(workLbl, backToTownBtnWork);
+        workVBox.setPadding(new Insets(10, 10, 10, 10));
+        workScene = new Scene(workBP, 750, 500);
+
+
 
         //        StackPane layout = new StackPane();
         //        layout.getChildren().addAll(dayButton, dayLabel);

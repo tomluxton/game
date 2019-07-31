@@ -1,5 +1,8 @@
 package game;
 
+import game.View;
+import game.Controller;
+
 public class Model {
 
     private int dayCounter;
@@ -79,7 +82,7 @@ public class Model {
     public void changeStockValue(){
         if ((int)(Math.random()*10) < growthChance) {
             stockValue += Math.random() * growthVolitility;
-        } else if(stockValue<=0){
+        } else if(stockValue <= 0){
             //do nothing
         } else {
             stockValue -= Math.random() * decreaseVolitility;
