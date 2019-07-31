@@ -2,6 +2,7 @@ package game;
 
 import game.Model;
 import game.View;
+import game.Controller;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

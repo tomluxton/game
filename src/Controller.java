@@ -1,5 +1,8 @@
 package game;
 
+import game.Model;
+import game.View;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
