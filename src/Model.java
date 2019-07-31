@@ -85,6 +85,7 @@ public class Model {
         double changeAmountUp = Math.random() * growthVolitility;
         double changeAmountDown = Math.random() * decreaseVolitility;
 
+        //if a random number (0-9) is less than growth chance -> up teh stock value
         if ((int)(Math.random()*10) < growthChance) {
             stockValue += changeAmountUp;
         } else if(stockValue <= 0 || (stockValue-changeAmountDown<0)){
