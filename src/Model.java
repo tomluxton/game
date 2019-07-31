@@ -23,6 +23,8 @@ public class Model {
     private int playerMoney;
     //player has starting cash $500
 
+    private boolean playerHasJob;
+
     private int playerStocksOwned;
 
     public Model(){
@@ -80,12 +82,15 @@ public class Model {
     }
 
     public void changeStockValue(){
+        double changeAmountUp = Math.random() * growthVolitility;
+        double changeAmountDown = Math.random() * decreaseVolitility;
+
         if ((int)(Math.random()*10) < growthChance) {
-            stockValue += Math.random() * growthVolitility;
-        } else if(stockValue <= 0){
+            stockValue += changeAmountUp;
+        } else if(stockValue <= 0 || (stockValue-changeAmountDown<0)){
             //do nothing
         } else {
-            stockValue -= Math.random() * decreaseVolitility;
+            stockValue -= changeAmountDown;
         }
     }
 
