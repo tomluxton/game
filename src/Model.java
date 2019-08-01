@@ -178,8 +178,7 @@ public class Model {
             playerMoney += getStockValue() * sellAmount;
             playerStocksOwned -= sellAmount;
         } else {
-            ;// need to throw some kind of error here if its too much
+            ;// need to throw some kind of error here if its to0 much
         }
     }
-
 }
