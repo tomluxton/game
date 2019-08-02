@@ -39,10 +39,14 @@ public class Controller {
         button.get(3).setOnAction(e -> travel_ToTownPage());
         button.get(4).setOnAction(e -> travel_ToStockPage());
         button.get(5).setOnAction(e -> travel_ToWorkPage());
-        button.get(6).setOnAction(e -> travel_ToTownPage2());
+        button.get(6).setOnAction(e -> travel_ToTownPage());
         button.get(7).setOnAction(e -> show_JobListings());
         button.get(8).setOnAction(e -> employed_janitor());
         button.get(9).setOnAction(e -> work_shift());
+        button.get(10).setOnAction(e -> travel_ToTownPage()); //backToTownBtnUni
+        button.get(11).setOnAction(e -> travel_ToUniPage()); //toUniBtn
+        button.get(12).setOnAction(e -> travel_ToUniPage());
+
 
         setAbilityOfWork();
 
@@ -62,6 +66,13 @@ public class Controller {
         view.set_WorkScene();
     }
 
+    //b means bachelour
+    public void enroll_b_business(){
+        model.setDegree("bBusiness");
+        model.setSemesterCost(5000);
+        view.set_UniverstiyScene();
+    }
+
     public void show_JobListings(){
         view.set_jobListings();
     }
@@ -74,12 +85,17 @@ public class Controller {
         }
     }
 
+    private void travel_ToUniPage(){
+        view.set_UniverstiyScene();
+    }
+
     private void travel_ToStockPage() {
         view.set_StockScene();
        // view.updateScene();
     }
 
     private void travel_ToTownPage() {
+        view.hide_jobListings();
         view.set_TownScene();
 //        System.out.println("travel to town button");
 

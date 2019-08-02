@@ -33,6 +33,10 @@ public class Model {
 
     private int playerWage;
 
+    private String playersCurrentDegree;
+
+    private int playersCurrentDegreeCost;
+
     public Model(){
         dayCounter = 0;
         stockValue = 10;
@@ -56,6 +60,30 @@ public class Model {
 
         playerJob = "Unemployed";
 
+        playersCurrentDegree = "";
+
+        playersCurrentDegreeCost = 0;
+
+    }
+
+    public void setSemesterCost(int cost){
+        playersCurrentDegreeCost = cost;
+    }
+
+    public void setDegree(String degree){
+        playersCurrentDegree = degree;
+    }
+
+    public String getDegreeHunt(){
+        if(getPlayersCurrentDegree()!= ""){
+            return "Enroll in a different degree";
+        } else {
+            return "Enroll in a degree";
+        }
+    }
+
+    public String getPlayersCurrentDegree(){
+        return playersCurrentDegree;
     }
 
 

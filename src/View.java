@@ -30,6 +30,7 @@ public class View {
     private Scene stockScene;
     private Scene townScene;
     private Scene workScene;
+    private Scene universtiyScene;
 
     private Label dayLabel;
     private LineChart lineChart;
@@ -48,8 +49,10 @@ public class View {
     private Button sellButton;
     private Button backToTownBtnStock;
     private Button backToTownBtnWork;
+    private Button backToTownBtnUni;
     private Button toStocksBtn;
     private Button toWorkBtn;
+    private Button toUniBtn;
 
     private ArrayList<Button> buttonArray;
 
@@ -81,6 +84,17 @@ public class View {
 
     private Label stockMarketHboxDayLbl;
     private Label stockMarketHboxMoneyLbl;
+
+    private Label uniDayLbl;
+    private Button lookForDegreeBtn;
+    private Button studyBtn;
+
+    private VBox uniVBox;
+    private VBox uniVBoxSecond;
+    private HBox uniHbox;
+
+    private Label uniMoneyLbl;
+
 
 
     public void updateScene() {
@@ -114,7 +128,7 @@ public class View {
     }
 
     public ArrayList<Button> getButtons() {
-        System.out.println(buttonArray);
+//        System.out.println(buttonArray);
         return buttonArray;
     }
 
@@ -143,6 +157,7 @@ public class View {
         toStocksBtn = new Button("Stock Trade");
         //toStocksBtn.setOnAction(e -> window.setScene(stockScene));
         toWorkBtn = new Button("Work");
+        toUniBtn = new Button("University");
 
 
 
@@ -174,7 +189,7 @@ public class View {
         townVBox.setSpacing(8);
 
         townHBox.getChildren().addAll(townTitleLbl, townDayLbl,townMoneyLbl);
-        townVBox.getChildren().addAll(townLbl, toStocksBtn, toWorkBtn);
+        townVBox.getChildren().addAll(townLbl, toStocksBtn, toWorkBtn, toUniBtn);
 
 //        townLayout = new VBox(20);
 //        townLayout.getChildren().addAll(townLbl, toStocksBtn, toWorkBtn);
@@ -237,8 +252,48 @@ public class View {
         series.getData().add(new XYChart.Data(model.getDay(), model.getStockValue()));
         lineChart.getData().add(series);
 
+        //university
+
+        Label uniLbl = new Label("Welcome to University!");
+        backToTownBtnUni = new Button("Back to town");
+
+        //the following is to be added
+        uniDayLbl = new Label("Day " + String.valueOf(model.getDay()));
+        lookForDegreeBtn = new Button(model.getDegreeHunt());
+        studyBtn = new Button("Study for the day");
 
 
+
+        BorderPane uniBP = new BorderPane();
+        uniVBox = new VBox(20);
+        uniHbox = new HBox();
+        uniVBoxSecond = new VBox(20);
+
+        uniHbox.setPadding(new Insets(15, 12, 15, 12));
+        uniHbox.setSpacing(10);
+        uniHbox.setStyle("-fx-background-color: #84abff;");
+
+        uniDayLbl = new Label("Day " + String.valueOf(model.getDay()));
+        uniMoneyLbl = new Label("Money: " + model.getPlayerMoney());
+        Label uniTitleLbl = new Label("Work");
+        uniHbox.getChildren().addAll(uniTitleLbl, uniDayLbl, uniMoneyLbl);
+
+        uniBP.setTop(workHbox);
+        uniBP.setLeft(workVBox);
+        uniBP.setRight(workVBoxSecond);
+        uniVBox.getChildren().addAll(uniLbl, studyBtn, lookForDegreeBtn, backToTownBtnUni);
+        uniVBox.setPadding(new Insets(10));
+        uniVBox.setSpacing(8);
+
+        uniVBoxSecond.setPadding(new Insets(10));
+        uniVBoxSecond.setSpacing(8);
+
+        Button businessDegreeBtn = new Button("Bachelor of Business | Cost per Semester: $5000");
+
+        universtiyScene = new Scene(uniBP, 750, 600);
+
+
+        //stock market
         BorderPane stockMarketBP = new BorderPane();
         GridPane layout = new GridPane();
         layout.setMinSize(750, 600);
@@ -270,7 +325,10 @@ public class View {
                 backToTownBtnWork,
                 lookForWorkBtn,
                 janitorJobBtn,
-                workBtn));
+                workBtn,
+                backToTownBtnUni, //10
+                toUniBtn,
+                businessDegreeBtn));
 
         HBox stockMarketHbox = new HBox();
 
@@ -333,5 +391,9 @@ public class View {
 
     public void set_WorkScene(){
         primaryStage.setScene(this.workScene);
+    }
+
+    public void set_UniverstiyScene(){
+        primaryStage.setScene(this.universtiyScene);
     }
 }
