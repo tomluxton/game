@@ -49,7 +49,7 @@ public class View {
     private Button sellButton;
     private Button backToTownBtnStock;
     private Button backToTownBtnWork;
-    private Button backToTownBtnUni;
+//    private Button backToTownBtnUni;
     private Button toStocksBtn;
     private Button toWorkBtn;
     private Button toUniBtn;
@@ -255,7 +255,7 @@ public class View {
         //university
 
         Label uniLbl = new Label("Welcome to University!");
-        backToTownBtnUni = new Button("Back to town");
+        Button backToTownBtnUni = new Button("Back to town");
 
         //the following is to be added
         uniDayLbl = new Label("Day " + String.valueOf(model.getDay()));
@@ -269,18 +269,20 @@ public class View {
         uniHbox = new HBox();
         uniVBoxSecond = new VBox(20);
 
+        uniBP.setTop(uniHbox);
+        uniBP.setLeft(uniVBox);
+        uniBP.setRight(uniVBoxSecond);
+
         uniHbox.setPadding(new Insets(15, 12, 15, 12));
         uniHbox.setSpacing(10);
         uniHbox.setStyle("-fx-background-color: #84abff;");
 
         uniDayLbl = new Label("Day " + String.valueOf(model.getDay()));
         uniMoneyLbl = new Label("Money: " + model.getPlayerMoney());
-        Label uniTitleLbl = new Label("Work");
+        Label uniTitleLbl = new Label("University");
         uniHbox.getChildren().addAll(uniTitleLbl, uniDayLbl, uniMoneyLbl);
 
-        uniBP.setTop(workHbox);
-        uniBP.setLeft(workVBox);
-        uniBP.setRight(workVBoxSecond);
+
         uniVBox.getChildren().addAll(uniLbl, studyBtn, lookForDegreeBtn, backToTownBtnUni);
         uniVBox.setPadding(new Insets(10));
         uniVBox.setSpacing(8);
@@ -327,8 +329,7 @@ public class View {
                 janitorJobBtn,
                 workBtn,
                 backToTownBtnUni, //10
-                toUniBtn,
-                businessDegreeBtn));
+                toUniBtn));
 
         HBox stockMarketHbox = new HBox();
 
@@ -358,6 +359,9 @@ public class View {
             workVBoxSecond.getChildren().addAll(jobListings, janitorJobBtn);
 
         }
+        if (model.getPlayersJob() == "Janitor"){
+            workVBoxSecond.getChildren().remove(janitorJobBtn);
+        }
     }
 
     public void hide_jobListings(){
@@ -368,7 +372,7 @@ public class View {
         Label workLbl = new Label(model.getJobWelcoming());
         workVBox.getChildren().remove(0);
         workVBox.getChildren().add(0, workLbl);
-        workVBox.getChildren().add(1,workBtn);
+        workVBox.getChildren().add(1, workBtn);
 
     }
 
@@ -391,9 +395,11 @@ public class View {
 
     public void set_WorkScene(){
         primaryStage.setScene(this.workScene);
+        System.out.println("reached work");
     }
 
-    public void set_UniverstiyScene(){
+    public void set_UniversityScene(){
         primaryStage.setScene(this.universtiyScene);
+        System.out.println("reached uni");
     }
 }

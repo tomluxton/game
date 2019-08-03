@@ -45,7 +45,6 @@ public class Controller {
         button.get(9).setOnAction(e -> work_shift());
         button.get(10).setOnAction(e -> travel_ToTownPage()); //backToTownBtnUni
         button.get(11).setOnAction(e -> travel_ToUniPage()); //toUniBtn
-        button.get(12).setOnAction(e -> travel_ToUniPage());
 
 
         setAbilityOfWork();
@@ -70,7 +69,7 @@ public class Controller {
     public void enroll_b_business(){
         model.setDegree("bBusiness");
         model.setSemesterCost(5000);
-        view.set_UniverstiyScene();
+        view.set_UniversityScene();
     }
 
     public void show_JobListings(){
@@ -86,7 +85,7 @@ public class Controller {
     }
 
     private void travel_ToUniPage(){
-        view.set_UniverstiyScene();
+        view.set_UniversityScene();
     }
 
     private void travel_ToStockPage() {
